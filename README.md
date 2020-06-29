@@ -21,7 +21,7 @@
 
 ## Run the project
 
-- Clone Project: 'https://github.com/Vlad-Viddi/PIXI_shapes.git';
+- Clone Project: 'git clone https://github.com/Vlad-Viddi/PIXI_shapes.git';
 - Open Project Folder: 'cd PATH-to-PROJECT-FOLDER';
 - Run 'npm install';
 - Run 'npm start';
