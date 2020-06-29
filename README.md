@@ -10,8 +10,8 @@
 
 ## Run the project
 
-- Clone project: 'https://github.com/Vlad-Viddi/PIXI_shapes.git';
-- Open Project folder: 'cd PATH to PROJECT FOLDER';
+- Clone Project: 'https://github.com/Vlad-Viddi/PIXI_shapes.git';
+- Open Project Folder: 'cd PATH-to-PROJECT-FOLDER';
 - Run 'npm install';
 - Run 'npm start';
 - Open your browser at 'localhost:1234';
