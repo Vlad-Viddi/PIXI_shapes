@@ -49087,7 +49087,8 @@ var Controller = /*#__PURE__*/function () {
           _this3.deleteShape(shape, index);
         }
       });
-    }
+    } // I suppose here 'requestAnimationFrame' will suit better, but haven't found clear giude how to implement it
+
   }, {
     key: "initPixiShapes",
     value: function initPixiShapes() {

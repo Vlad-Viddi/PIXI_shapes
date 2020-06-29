@@ -132,6 +132,7 @@ export class Controller {
     });
   }
 
+  // I suppose here 'requestAnimationFrame' will suit better, but haven't found clear giude how to implement it
   initPixiShapes() {
     this.initPlayground();
     setInterval(() => this.createShapes(), 1000);

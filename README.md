@@ -8,6 +8,17 @@
 - Random shape with random color will be generated on click on mouse position inside game area, and this shape start falling;
 - To increase quantity on shapes generating per second there is a control pad (increase quantuty "+" and decrease quantuty "-") next to Gravity Value controller;
 
+## NOT Implemented:
+- By tapping on any form it's deleting from game area and all the rest shapes of the same type are changing its color;
+- Add TypeScript to make development with less design errors;
+
+## Tech used in Project:
+- HTML, CSS, JavaScropt (ES6);
+- PIXIJS framework, SASS prep;
+- Parcel bundler;
+- Basic OOP, MVC;
+
+
 ## Run the project
 
 - Clone Project: 'https://github.com/Vlad-Viddi/PIXI_shapes.git';
