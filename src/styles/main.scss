@@ -1,0 +1,104 @@
+@import './colors.scss';
+
+@mixin infoSectionsAlingment {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 800px;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: $bg-color;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+
+  .main-header {
+    text-align: center;
+  }
+
+  .gameSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+
+    .informationSet {
+      @include infoSectionsAlingment;
+
+      .totalShapesArea {
+        display: inline-block;
+        width: 50px;
+        text-align: right;
+      }
+    }
+
+    &__field {
+      border: 1px solid $border-color;
+      border-radius: 5px;
+    }
+
+    .buttons {
+      @include infoSectionsAlingment;
+
+      .shapes-value, .gravity-value {
+        display: inline-block;
+        width: 20px;
+        text-align: center;
+      }
+
+      .btn {
+        width: 40px;
+        height: 50px;
+        border: 1px solid black;
+        font-weight: bold;
+        font-size: 16px;
+        border: none;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease 0s;
+        cursor: pointer;
+        outline: none;
+        
+
+        &--left {
+          border-radius: 50% 0 0 50%;
+          padding-left: 12px;
+        }
+
+        &--right {
+          border-radius: 0 50% 50% 0;
+          padding-right: 12px;
+        }
+
+        &:hover {
+          background-color: rgba($awesome-green, 0.5);
+          // background-color: #a3a8a6;
+          box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+          color: #fff;
+        }
+      }
+
+      &__header {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  .footer {
+    text-align: center;
+
+    .selfLink {
+      text-decoration: none;
+      color: #111D5E;
+      background-color: rgba( #ffbd69, 0.4);
+
+      &:hover {
+        background-color: #ffbd69;
+      }
+    }
+  }
+}
