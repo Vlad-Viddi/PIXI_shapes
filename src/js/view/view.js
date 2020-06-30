@@ -5,6 +5,7 @@ export class View {
     this.model = model;
   }
 
+  // implementation of Shoelace formula (Gauss's area formula or the surveyor's formula)
   countArea(coords) {
     const c = coords;
     // n is a number of corners of the given shape
@@ -22,6 +23,7 @@ export class View {
     return '0x' + (Math.round(0xFFFFFF * Math.random())).toString(16);
   }
 
+  // creating few types of shapes by coords with random positions in space
   createRandomShape(x = this.model.canvasWidth * Math.random(), y = this.model.shapesYGenerationPosition) {
     const graphic = new PIXI.Graphics();
     const randomColor = this.getRandomColor();
@@ -53,7 +55,6 @@ export class View {
           (Math.random() + 0.25) * 79, (Math.random() + 0.25) * 90,
           (Math.random() + 0.25) * 98, (Math.random() + 0.25) * 35,
         ];
-
         graphic.drawPolygon(...pentagonCoords);
         graphic.typeOfShape = 'pentagon';
         graphic.area = this.countArea(pentagonCoords);
@@ -84,7 +85,9 @@ export class View {
         graphic.area = Math.PI * ellipseWidth * ellipseHeight;
         break;
       case 'polygon':
-        const qtyOfSides = Math.floor(Math.random() * (4) + 7); // from heptagonal to decagonal figure
+
+        // choose qty of corners to create heptagonal to decagonal figures
+        const qtyOfSides = Math.floor(Math.random() * (4) + 7);
 
         switch(qtyOfSides) {
           case 7:

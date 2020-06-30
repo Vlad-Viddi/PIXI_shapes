@@ -9,6 +9,7 @@ export class Controller {
   start() {
     this.initPixiShapes();
 
+    // control the Gravity Value
     this.model.increaseGravity.addEventListener('click', () => {
       this.model.gravityValue++;
     
@@ -36,7 +37,6 @@ export class Controller {
     this.model.gravityValueIndicator.innerHTML = this.model.gravityValue;
 
     // control the qty of shapes falling down per second
-
     this.model.increaseQtyOfShapePerSecond.addEventListener('click', () => {
       this.model.shapesGeneratingPerSecond++;
     
@@ -100,13 +100,6 @@ export class Controller {
     this.model.shapesOnPageArr.splice(index, 1);
   }
 
-  // deleteShapeOnTap() {
-  //   this.model.shapesOnPageArr.filter((shape, index) => {
-  //     shape.on('pointerdown', () => this.deleteShape((shape, index)))
-  //   });
-  //   console.log('did delete on tap');
-  // }
-
   createShapeOnTap() {
     this.model.gameField.addEventListener('click', event => {
       event.stopPropagation();
@@ -132,7 +125,7 @@ export class Controller {
     });
   }
 
-  // I suppose here 'requestAnimationFrame' will suit better, but haven't found clear giude how to implement it
+  // I suppose 'requestAnimationFrame' will suit better in here, but haven't found clear guide how to implement it
   initPixiShapes() {
     this.initPlayground();
     setInterval(() => this.createShapes(), 1000);

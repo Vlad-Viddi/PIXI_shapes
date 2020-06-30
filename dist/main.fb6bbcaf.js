@@ -138,12 +138,6 @@ var Model = function Model() {
 
   _defineProperty(this, "shapesContainer", null);
 
-  _defineProperty(this, "gravityValue", 5);
-
-  _defineProperty(this, "increaseGravity", document.querySelector('.buttons__gravity--increase'));
-
-  _defineProperty(this, "decreaseGravity", document.querySelector('.buttons__gravity--decrease'));
-
   _defineProperty(this, "canvasWidth", 800);
 
   _defineProperty(this, "canvasHeight", 400);
@@ -158,6 +152,16 @@ var Model = function Model() {
 
   _defineProperty(this, "decreaseQtyOfShapePerSecond", document.querySelector('.buttons__shapes--decrease'));
 
+  _defineProperty(this, "shapesPerSecondIndicator", document.querySelector('.shapes-value'));
+
+  _defineProperty(this, "gravityValue", 5);
+
+  _defineProperty(this, "increaseGravity", document.querySelector('.buttons__gravity--increase'));
+
+  _defineProperty(this, "decreaseGravity", document.querySelector('.buttons__gravity--decrease'));
+
+  _defineProperty(this, "gravityValueIndicator", document.querySelector('.gravity-value'));
+
   _defineProperty(this, "totalShapesArea", 0);
 
   _defineProperty(this, "shapesOnPageArr", []);
@@ -165,10 +169,6 @@ var Model = function Model() {
   _defineProperty(this, "currentShapesIndicator", document.querySelector('.currentShapes'));
 
   _defineProperty(this, "totalShapesAreaIndicator", document.querySelector('.totalShapesArea'));
-
-  _defineProperty(this, "shapesPerSecondIndicator", document.querySelector('.shapes-value'));
-
-  _defineProperty(this, "gravityValueIndicator", document.querySelector('.gravity-value'));
 
   _defineProperty(this, "randomShapesList", ['triangle', 'rectangle', 'pentagon', 'hexagon', 'circle', 'ellipse', 'polygon']);
 };
@@ -48796,7 +48796,8 @@ var View = /*#__PURE__*/function () {
     _classCallCheck(this, View);
 
     this.model = model;
-  }
+  } // implementation of Shoelace formula (Gauss's area formula or the surveyor's formula)
+
 
   _createClass(View, [{
     key: "countArea",
@@ -48816,7 +48817,8 @@ var View = /*#__PURE__*/function () {
     key: "getRandomColor",
     value: function getRandomColor() {
       return '0x' + Math.round(0xFFFFFF * Math.random()).toString(16);
-    }
+    } // creating few types of shapes by coords with random positions in space
+
   }, {
     key: "createRandomShape",
     value: function createRandomShape() {
@@ -48879,7 +48881,8 @@ var View = /*#__PURE__*/function () {
           break;
 
         case 'polygon':
-          var qtyOfSides = Math.floor(Math.random() * 4 + 7); // from heptagonal to decagonal figure
+          // choose qty of corners to create heptagonal to decagonal figures
+          var qtyOfSides = Math.floor(Math.random() * 4 + 7);
 
           switch (qtyOfSides) {
             case 7:
@@ -48954,7 +48957,8 @@ var Controller = /*#__PURE__*/function () {
     value: function start() {
       var _this = this;
 
-      this.initPixiShapes();
+      this.initPixiShapes(); // control the Gravity Value
+
       this.model.increaseGravity.addEventListener('click', function () {
         _this.model.gravityValue++;
 
@@ -49044,13 +49048,7 @@ var Controller = /*#__PURE__*/function () {
       shape.clear();
       this.model.totalShapesArea -= shape.area;
       this.model.shapesOnPageArr.splice(index, 1);
-    } // deleteShapeOnTap() {
-    //   this.model.shapesOnPageArr.filter((shape, index) => {
-    //     shape.on('pointerdown', () => this.deleteShape((shape, index)))
-    //   });
-    //   console.log('did delete on tap');
-    // }
-
+    }
   }, {
     key: "createShapeOnTap",
     value: function createShapeOnTap() {
@@ -49087,7 +49085,7 @@ var Controller = /*#__PURE__*/function () {
           _this3.deleteShape(shape, index);
         }
       });
-    } // I suppose here 'requestAnimationFrame' will suit better, but haven't found clear giude how to implement it
+    } // I suppose 'requestAnimationFrame' will suit better in here, but haven't found clear guide how to implement it
 
   }, {
     key: "initPixiShapes",
@@ -49149,7 +49147,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62123" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62837" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
