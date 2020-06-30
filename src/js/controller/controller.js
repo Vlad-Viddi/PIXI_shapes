@@ -62,14 +62,7 @@ export class Controller {
     });
 
     this.model.shapesPerSecondIndicator.innerHTML = this.model.shapesGeneratingPerSecond;
-
     this.createShapeOnTap();
-
-    this.model.shapesOnPageArr.map(shape => shape.on('pointerdown', (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      this.model.app.stage.removeChild(shape);
-    }));
   }
 
   initPlayground() {
@@ -94,6 +87,7 @@ export class Controller {
     this.model.totalShapesAreaIndicator.innerHTML = Math.round(this.model.totalShapesArea);
   }
 
+  // delete method - used when shape leaves game area
   deleteShape(shape, index) {
     shape.clear();
     this.model.totalShapesArea -= shape.area;
@@ -108,9 +102,6 @@ export class Controller {
       this.model.shapesOnPageArr.push(shape);
       this.model.totalShapesArea += shape.area;
       this.model.shapesContainer.addChild(shape);
-      shape.on('click', event => {
-        this.view.app.stage.removeChild(shape);
-        });
     });
     this.model.currentShapesIndicator.innerHTML = this.model.shapesOnPageArr.length;
     this.model.totalShapesAreaIndicator.innerHTML = Math.round(this.model.totalShapesArea);

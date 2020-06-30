@@ -49007,14 +49007,6 @@ var Controller = /*#__PURE__*/function () {
       });
       this.model.shapesPerSecondIndicator.innerHTML = this.model.shapesGeneratingPerSecond;
       this.createShapeOnTap();
-      this.model.shapesOnPageArr.map(function (shape) {
-        return shape.on('pointerdown', function (event) {
-          event.preventDefault();
-          event.stopPropagation();
-
-          _this.model.app.stage.removeChild(shape);
-        });
-      });
     }
   }, {
     key: "initPlayground",
@@ -49041,7 +49033,8 @@ var Controller = /*#__PURE__*/function () {
 
       this.model.currentShapesIndicator.innerHTML = this.model.shapesOnPageArr.length;
       this.model.totalShapesAreaIndicator.innerHTML = Math.round(this.model.totalShapesArea);
-    }
+    } // delete method - used when shape leaves game area
+
   }, {
     key: "deleteShape",
     value: function deleteShape(shape, index) {
@@ -49065,10 +49058,6 @@ var Controller = /*#__PURE__*/function () {
         _this2.model.totalShapesArea += shape.area;
 
         _this2.model.shapesContainer.addChild(shape);
-
-        shape.on('click', function (event) {
-          _this2.view.app.stage.removeChild(shape);
-        });
       });
       this.model.currentShapesIndicator.innerHTML = this.model.shapesOnPageArr.length;
       this.model.totalShapesAreaIndicator.innerHTML = Math.round(this.model.totalShapesArea);
