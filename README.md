@@ -5,22 +5,20 @@
 - Inside game area random shapes are generating randomly with random colors;
 - All the shapes have been created outside the game area, and they are falling down from top to bottom and disappear outside bottom line of game area;
 - The falling speed is controlled by Gravity Value, which can be managed (speed up "+" and speed down "-"). This controller is below game area;
-- Random shape with random color will be generated on click on mouse position inside game area, and this shape start falling;
-- To increase quantity on shapes generating per second there is a control pad (increase quantuty "+" and decrease quantuty "-") next to Gravity Value controller;
+- Random shape with random color will be generated on click on mouse position inside game area, and this shape starts falling;
+- To increase quantity on shapes generating per second there is a control pad (increase quantity "+" and decrease quantity "-") next to Gravity Value controller;
 
 ## NOT Implemented:
-- By tapping on any form it's deleting from game area and all the rest shapes of the same type are changing its color;
+- By tapping on any form it must be removed from game area and all the rest shapes of the same type have to change its color;
 - Add TypeScript to make development with less design errors;
 
 ## Tech used in Project:
-- HTML, CSS, JavaScropt (ES6);
-- PIXIJS framework, SASS prep;
+- HTML, SASS, JavaScropt (ES6), PIXIJS;
 - Parcel bundler;
 - Basic OOP, MVC;
 
 
 ## Run the project
-
 - Clone Project: 'git clone https://github.com/Vlad-Viddi/PIXI_shapes.git';
 - Open Project Folder: 'cd PATH-to-PROJECT-FOLDER';
 - Run 'npm install';
