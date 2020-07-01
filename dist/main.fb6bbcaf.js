@@ -48940,6 +48940,12 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -49023,14 +49029,31 @@ var Controller = /*#__PURE__*/function () {
   }, {
     key: "createShapes",
     value: function createShapes() {
+      var _this2 = this;
+
       this.model.shapesContainer = new PIXI.Container();
       this.model.app.stage.addChild(this.model.shapesContainer);
 
+      var _loop = function _loop(i) {
+        var shape = _this2.view.createRandomShape();
+
+        _this2.model.shapesOnPageArr.push(shape);
+
+        _this2.model.totalShapesArea += shape.area;
+
+        _this2.model.shapesContainer.addChild(shape);
+
+        shape.on('pointerdown', function () {
+          _this2.model.shapesContainer.removeChild(shape);
+
+          _this2.deleteShape(shape);
+
+          _this2.changeSameShapeColor(shape);
+        });
+      };
+
       for (var i = 1; i <= this.model.shapesGeneratingPerSecond; i++) {
-        var shape = this.view.createRandomShape();
-        this.model.shapesOnPageArr.push(shape);
-        this.model.totalShapesArea += shape.area;
-        this.model.shapesContainer.addChild(shape);
+        _loop(i);
       }
 
       this.model.currentShapesIndicator.innerHTML = this.model.shapesOnPageArr.length;
@@ -49039,27 +49062,55 @@ var Controller = /*#__PURE__*/function () {
 
   }, {
     key: "deleteShape",
-    value: function deleteShape(shape, index) {
+    value: function deleteShape(shape) {
+      var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.model.shapesOnPageArr.indexOf(shape);
       shape.clear();
       this.model.totalShapesArea -= shape.area;
       this.model.shapesOnPageArr.splice(index, 1);
     }
   }, {
+    key: "changeSameShapeColor",
+    value: function changeSameShapeColor(shape) {
+      var clickedTypeOfShape = shape.typeOfShape;
+
+      var _iterator = _createForOfIteratorHelper(this.model.shapesOnPageArr),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var shapeFromArr = _step.value;
+
+          if (shapeFromArr.typeOfShape === clickedTypeOfShape) {
+            shapeFromArr.tint = this.view.getRandomColor();
+          }
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+    }
+  }, {
     key: "createShapeOnTap",
     value: function createShapeOnTap() {
-      var _this2 = this;
+      var _this3 = this;
 
-      this.model.gameField.addEventListener('click', function (event) {
-        event.stopPropagation();
-        event.preventDefault();
+      this.model.app.renderer.plugins.interaction.on('pointerdown', function () {
+        var shape = _this3.view.createRandomShape(event.offsetX, event.offsetY);
 
-        var shape = _this2.view.createRandomShape(event.offsetX, event.offsetY);
+        _this3.model.shapesOnPageArr.push(shape);
 
-        _this2.model.shapesOnPageArr.push(shape);
+        _this3.model.totalShapesArea += shape.area;
 
-        _this2.model.totalShapesArea += shape.area;
+        _this3.model.shapesContainer.addChild(shape);
 
-        _this2.model.shapesContainer.addChild(shape);
+        shape.on('pointerdown', function () {
+          _this3.model.shapesContainer.removeChild(shape);
+
+          _this3.deleteShape(shape);
+
+          _this3.changeSameShapeColor(shape);
+        });
       });
       this.model.currentShapesIndicator.innerHTML = this.model.shapesOnPageArr.length;
       this.model.totalShapesAreaIndicator.innerHTML = Math.round(this.model.totalShapesArea);
@@ -49067,27 +49118,26 @@ var Controller = /*#__PURE__*/function () {
   }, {
     key: "animate",
     value: function animate() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.model.shapesOnPageArr.map(function (shape, index) {
-        shape.y += _this3.model.gravityValue;
+        shape.y += _this4.model.gravityValue;
 
-        if (shape.y > _this3.model.shapesYDestructionPosition) {
-          _this3.deleteShape(shape, index);
+        if (shape.y > _this4.model.shapesYDestructionPosition) {
+          _this4.deleteShape(shape, index);
         }
       });
-    } // I suppose 'requestAnimationFrame' will suit better in here, but haven't found clear guide how to implement it
-
+    }
   }, {
     key: "initPixiShapes",
     value: function initPixiShapes() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.initPlayground();
 
       var updateFrames = function updateFrames() {
-        if (_this4.model.frameUpdateValue++ % 60 === 0) {
-          _this4.createShapes();
+        if (_this5.model.frameUpdateValue++ % 60 === 0) {
+          _this5.createShapes();
         }
 
         ;
@@ -49096,7 +49146,7 @@ var Controller = /*#__PURE__*/function () {
 
       updateFrames();
       this.model.app.ticker.add(function () {
-        return _this4.animate();
+        return _this5.animate();
       });
     }
   }]);
@@ -49146,7 +49196,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51095" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61740" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

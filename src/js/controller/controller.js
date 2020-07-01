@@ -82,26 +82,45 @@ export class Controller {
       this.model.shapesOnPageArr.push(shape);
       this.model.totalShapesArea += shape.area;
       this.model.shapesContainer.addChild(shape);
+      shape.on('pointerdown', () => {
+        this.model.shapesContainer.removeChild(shape);
+        this.deleteShape(shape);
+        this.changeSameShapeColor(shape);
+      });
     }
     this.model.currentShapesIndicator.innerHTML = this.model.shapesOnPageArr.length;
     this.model.totalShapesAreaIndicator.innerHTML = Math.round(this.model.totalShapesArea);
   }
 
   // delete method - used when shape leaves game area
-  deleteShape(shape, index) {
+  deleteShape(shape, index = this.model.shapesOnPageArr.indexOf(shape)) {
     shape.clear();
     this.model.totalShapesArea -= shape.area;
     this.model.shapesOnPageArr.splice(index, 1);
   }
 
+  changeSameShapeColor(shape) {
+    const clickedTypeOfShape = shape.typeOfShape;
+
+    for (let shapeFromArr of this.model.shapesOnPageArr) {
+      if (shapeFromArr.typeOfShape === clickedTypeOfShape) {
+        shapeFromArr.tint = this.view.getRandomColor();
+      }
+    }
+  }
+
   createShapeOnTap() {
-    this.model.gameField.addEventListener('click', event => {
-      event.stopPropagation();
-      event.preventDefault();
+    this.model.app.renderer.plugins.interaction.on('pointerdown', () => {
+      
       const shape = this.view.createRandomShape(event.offsetX, event.offsetY);
       this.model.shapesOnPageArr.push(shape);
       this.model.totalShapesArea += shape.area;
       this.model.shapesContainer.addChild(shape);
+      shape.on('pointerdown', () => {
+        this.model.shapesContainer.removeChild(shape);
+        this.deleteShape(shape);
+        this.changeSameShapeColor(shape);
+      });
     });
     this.model.currentShapesIndicator.innerHTML = this.model.shapesOnPageArr.length;
     this.model.totalShapesAreaIndicator.innerHTML = Math.round(this.model.totalShapesArea);
@@ -116,7 +135,6 @@ export class Controller {
     });
   }
 
-  // I suppose 'requestAnimationFrame' will suit better in here, but haven't found clear guide how to implement it
   initPixiShapes() {
     this.initPlayground();
 
