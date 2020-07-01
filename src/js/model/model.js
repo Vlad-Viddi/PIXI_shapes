@@ -3,6 +3,8 @@ export class Model {
   app = null;
   shapesContainer = null;
 
+  frameUpdateValue = 60;
+
   canvasWidth = 800;
   canvasHeight = 400;
   shapesYGenerationPosition = - 100;

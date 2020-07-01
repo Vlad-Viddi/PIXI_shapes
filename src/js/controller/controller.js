@@ -119,7 +119,15 @@ export class Controller {
   // I suppose 'requestAnimationFrame' will suit better in here, but haven't found clear guide how to implement it
   initPixiShapes() {
     this.initPlayground();
-    setInterval(() => this.createShapes(), 1000);
+
+    const step = () => {
+      if (this.model.frameUpdateValue++ % 60 === 0) {
+        this.createShapes();
+      };
+      requestAnimationFrame(step);
+    }
+    step();
+
     this.model.app.ticker.add(() => this.animate());
   }
 }

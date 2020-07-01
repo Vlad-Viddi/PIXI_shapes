@@ -138,6 +138,8 @@ var Model = function Model() {
 
   _defineProperty(this, "shapesContainer", null);
 
+  _defineProperty(this, "frameUpdateValue", 60);
+
   _defineProperty(this, "canvasWidth", 800);
 
   _defineProperty(this, "canvasHeight", 400);
@@ -49082,9 +49084,17 @@ var Controller = /*#__PURE__*/function () {
       var _this4 = this;
 
       this.initPlayground();
-      setInterval(function () {
-        return _this4.createShapes();
-      }, 1000);
+
+      var step = function step() {
+        if (_this4.model.frameUpdateValue++ % 60 === 0) {
+          _this4.createShapes();
+        }
+
+        ;
+        requestAnimationFrame(step);
+      };
+
+      step();
       this.model.app.ticker.add(function () {
         return _this4.animate();
       });
@@ -49136,7 +49146,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62837" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51095" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
