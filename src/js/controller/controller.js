@@ -72,10 +72,19 @@ export class Controller {
       height: this.model.canvasHeight, 
       backgroundColor: 0xd4f3ef, 
     });
+
+    // create a canvas, click on which creates random shape
+    this.model.backgroundCanvas = new PIXI.Graphics();
+    this.model.backgroundCanvas.beginFill(0xd4f3ef);
+    this.model.backgroundCanvas.drawRect(0, 0, this.model.canvasWidth, this.model.canvasHeight);
+    this.model.backgroundCanvas.endFill();
+    this.model.backgroundCanvas.interactive = true;
+    this.model.app.stage.addChild(this.model.backgroundCanvas);
   }
 
   createShapes() {
     this.model.shapesContainer = new PIXI.Container();
+    // this.model.shapesContainer.interactive = true;
     this.model.app.stage.addChild(this.model.shapesContainer);
     for (let i = 1; i <= this.model.shapesGeneratingPerSecond; i++) {
       const shape = this.view.createRandomShape();
@@ -109,9 +118,9 @@ export class Controller {
     }
   }
 
+  // 
   createShapeOnTap() {
-    this.model.app.renderer.plugins.interaction.on('pointerdown', () => {
-      
+    this.model.backgroundCanvas.on('pointerdown', () => {
       const shape = this.view.createRandomShape(event.offsetX, event.offsetY);
       this.model.shapesOnPageArr.push(shape);
       this.model.totalShapesArea += shape.area;

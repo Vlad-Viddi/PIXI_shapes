@@ -2,6 +2,7 @@ export class Model {
   gameField = document.getElementById('game');
   app = null;
   shapesContainer = null;
+  backgroundCanvas = null;
 
   frameUpdateValue = 60;
 
