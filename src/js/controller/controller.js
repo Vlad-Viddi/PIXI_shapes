@@ -120,13 +120,13 @@ export class Controller {
   initPixiShapes() {
     this.initPlayground();
 
-    const step = () => {
+    const updateFrames = () => {
       if (this.model.frameUpdateValue++ % 60 === 0) {
         this.createShapes();
       };
-      requestAnimationFrame(step);
+      requestAnimationFrame(updateFrames);
     }
-    step();
+    updateFrames();
 
     this.model.app.ticker.add(() => this.animate());
   }

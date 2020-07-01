@@ -49085,16 +49085,16 @@ var Controller = /*#__PURE__*/function () {
 
       this.initPlayground();
 
-      var step = function step() {
+      var updateFrames = function updateFrames() {
         if (_this4.model.frameUpdateValue++ % 60 === 0) {
           _this4.createShapes();
         }
 
         ;
-        requestAnimationFrame(step);
+        requestAnimationFrame(updateFrames);
       };
 
-      step();
+      updateFrames();
       this.model.app.ticker.add(function () {
         return _this4.animate();
       });
