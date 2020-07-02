@@ -13,7 +13,7 @@
 - Add TypeScript to make development with less design errors;
 
 ## Tech used in Project:
-- HTML, SASS, JavaScropt (ES6), PIXIJS;
+- HTML, SASS, JavaScript (ES6), PIXIJS;
 - Parcel bundler;
 - Basic OOP, MVC;
 
