@@ -117,13 +117,36 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"js/model/model.js":[function(require,module,exports) {
+})({"helpers/constants.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.POLYGON = exports.ELLIPSE = exports.CIRCLE = exports.HEXAGON = exports.PENTAGON = exports.RECTANGLE = exports.TRIANGLE = void 0;
+var TRIANGLE = 'triangle';
+exports.TRIANGLE = TRIANGLE;
+var RECTANGLE = 'rectangle';
+exports.RECTANGLE = RECTANGLE;
+var PENTAGON = 'pentagon';
+exports.PENTAGON = PENTAGON;
+var HEXAGON = 'hexagon';
+exports.HEXAGON = HEXAGON;
+var CIRCLE = 'circle';
+exports.CIRCLE = CIRCLE;
+var ELLIPSE = 'ellipse';
+exports.ELLIPSE = ELLIPSE;
+var POLYGON = 'polygon';
+exports.POLYGON = POLYGON;
+},{}],"js/model/model.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Model = void 0;
+
+var _constants = require("../../helpers/constants");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -174,11 +197,11 @@ var Model = function Model() {
 
   _defineProperty(this, "totalShapesAreaIndicator", document.querySelector('.totalShapesArea'));
 
-  _defineProperty(this, "randomShapesList", ['triangle', 'rectangle', 'pentagon', 'hexagon', 'circle', 'ellipse', 'polygon']);
+  _defineProperty(this, "randomShapesList", [_constants.TRIANGLE, _constants.RECTANGLE, _constants.PENTAGON, _constants.HEXAGON, _constants.CIRCLE, _constants.ELLIPSE, _constants.POLYGON]);
 };
 
 exports.Model = Model;
-},{}],"../node_modules/es6-promise-polyfill/promise.js":[function(require,module,exports) {
+},{"../../helpers/constants":"helpers/constants.js"}],"../node_modules/es6-promise-polyfill/promise.js":[function(require,module,exports) {
 var global = arguments[3];
 var define;
 (function(global){
@@ -48785,6 +48808,8 @@ exports.View = void 0;
 
 var PIXI = _interopRequireWildcard(require("pixi.js"));
 
+var _constants = require("../../helpers/constants");
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -48835,7 +48860,7 @@ var View = /*#__PURE__*/function () {
       graphic.beginFill(randomColor);
 
       switch (randomShape) {
-        case 'triangle':
+        case _constants.TRIANGLE:
           var x1 = 0,
               y1 = 0;
           var x2 = (Math.random() + 0.25) * 100,
@@ -48843,48 +48868,48 @@ var View = /*#__PURE__*/function () {
           var x3 = (Math.random() + 0.25) * 100,
               y3 = (Math.random() + 0.25) * 100;
           graphic.drawPolygon(x1, y1, x2, y2, x3, y3);
-          graphic.typeOfShape = 'triangle';
+          graphic.typeOfShape = _constants.TRIANGLE;
           graphic.area = 0.5 * Math.abs((x1 - x3) * (y2 - y3) - (y1 - y3) * (x2 - x3));
           break;
 
-        case 'rectangle':
+        case _constants.RECTANGLE:
           var height = (Math.random() + 0.25) * 100;
           var width = (Math.random() + 0.25) * 100;
           graphic.drawRect(0, 0, height, width);
-          graphic.typeOfShape = 'rectangle';
+          graphic.typeOfShape = _constants.RECTANGLE;
           graphic.area = height * width;
           break;
 
-        case 'pentagon':
+        case _constants.PENTAGON:
           var pentagonCoords = [(Math.random() + 0.25) * 50, 0, 2, (Math.random() + 0.25) * 35, (Math.random() + 0.25) * 21, (Math.random() + 0.25) * 90, (Math.random() + 0.25) * 79, (Math.random() + 0.25) * 90, (Math.random() + 0.25) * 98, (Math.random() + 0.25) * 35];
           graphic.drawPolygon.apply(graphic, pentagonCoords);
-          graphic.typeOfShape = 'pentagon';
+          graphic.typeOfShape = _constants.PENTAGON;
           graphic.area = this.countArea(pentagonCoords);
           break;
 
-        case 'hexagon':
+        case _constants.HEXAGON:
           var hexagonCoords = [(Math.random() + 0.25) * 75, (Math.random() + 0.25) * 7, (Math.random() + 0.25) * 25, (Math.random() + 0.25) * 7, 0, (Math.random() + 0.25) * 50, (Math.random() + 0.25) * 25, (Math.random() + 0.25) * 93, (Math.random() + 0.25) * 75, (Math.random() + 0.25) * 93, (Math.random() + 0.25) * 100, (Math.random() + 0.25) * 50];
           graphic.drawPolygon.apply(graphic, hexagonCoords);
-          graphic.typeOfShape = 'hexagon';
+          graphic.typeOfShape = _constants.HEXAGON;
           graphic.area = this.countArea(hexagonCoords);
           break;
 
-        case 'circle':
+        case _constants.CIRCLE:
           var radius = Math.random() * 50;
           graphic.drawCircle(0, 0, radius);
-          graphic.typeOfShape = 'circle';
+          graphic.typeOfShape = _constants.CIRCLE;
           graphic.area = Math.PI * Math.pow(radius, 2);
           break;
 
-        case 'ellipse':
+        case _constants.ELLIPSE:
           var ellipseWidth = (Math.random() + 0.25) * 80,
               ellipseHeight = (Math.random() + 0.25) * 60;
           graphic.drawEllipse(0, 0, ellipseWidth, ellipseHeight);
-          graphic.typeOfShape = 'ellipse';
+          graphic.typeOfShape = _constants.ELLIPSE;
           graphic.area = Math.PI * ellipseWidth * ellipseHeight;
           break;
 
-        case 'polygon':
+        case _constants.POLYGON:
           // choose qty of corners to create heptagonal to decagonal figures
           var qtyOfSides = Math.floor(Math.random() * 4 + 7);
 
@@ -48910,7 +48935,7 @@ var View = /*#__PURE__*/function () {
             case 10:
               var decagonalCoords = [(Math.random() + 0.25) * 65, 2, (Math.random() + 0.25) * 35, 2, 10, (Math.random() + 0.25) * 21, 0, (Math.random() + 0.25) * 50, 10, (Math.random() + 0.25) * 79, (Math.random() + 0.25) * 35, (Math.random() + 0.25) * 98, (Math.random() + 0.25) * 65, (Math.random() + 0.25) * 98, (Math.random() + 0.25) * 90, (Math.random() + 0.25) * 79, (Math.random() + 0.25) * 100, (Math.random() + 0.25) * 50, (Math.random() + 0.25) * 91, (Math.random() + 0.25) * 21];
               graphic.drawPolygon.apply(graphic, decagonalCoords);
-              graphic.typeOfShape = 'polygon';
+              graphic.typeOfShape = _constants.POLYGON;
               graphic.area = this.countArea(decagonalCoords);
               break;
           }
@@ -48928,7 +48953,7 @@ var View = /*#__PURE__*/function () {
 }();
 
 exports.View = View;
-},{"pixi.js":"../node_modules/pixi.js/lib/pixi.es.js"}],"js/controller/controller.js":[function(require,module,exports) {
+},{"pixi.js":"../node_modules/pixi.js/lib/pixi.es.js","../../helpers/constants":"helpers/constants.js"}],"js/controller/controller.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49040,8 +49065,8 @@ var Controller = /*#__PURE__*/function () {
     value: function createShapes() {
       var _this2 = this;
 
-      this.model.shapesContainer = new PIXI.Container(); // this.model.shapesContainer.interactive = true;
-
+      this.model.shapesContainer = new PIXI.Container();
+      this.model.shapesContainer.interactive = true;
       this.model.app.stage.addChild(this.model.shapesContainer);
 
       var _loop = function _loop(i) {
@@ -49066,7 +49091,8 @@ var Controller = /*#__PURE__*/function () {
         _loop(i);
       }
 
-      this.model.currentShapesIndicator.innerHTML = this.model.shapesOnPageArr.length;
+      this.model.currentShapesIndicator.innerHTML = this.model.shapesOnPageArr.length; // here we show the actual qty of shapes displayed
+
       this.model.totalShapesAreaIndicator.innerHTML = Math.round(this.model.totalShapesArea);
     } // delete method - used when shape leaves game area
 
@@ -49207,7 +49233,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61740" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55605" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

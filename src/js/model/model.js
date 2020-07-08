@@ -1,3 +1,13 @@
+import {
+  TRIANGLE,
+  RECTANGLE,
+  PENTAGON,
+  HEXAGON,
+  CIRCLE,
+  ELLIPSE,
+  POLYGON
+} from '../../helpers/constants';
+
 export class Model {
   gameField = document.getElementById('game');
   app = null;
@@ -26,5 +36,5 @@ export class Model {
   currentShapesIndicator = document.querySelector('.currentShapes');
   totalShapesAreaIndicator = document.querySelector('.totalShapesArea');
 
-  randomShapesList = ['triangle', 'rectangle', 'pentagon', 'hexagon', 'circle', 'ellipse', 'polygon'];
+  randomShapesList = [TRIANGLE, RECTANGLE, PENTAGON, HEXAGON, CIRCLE, ELLIPSE, POLYGON];
 }
