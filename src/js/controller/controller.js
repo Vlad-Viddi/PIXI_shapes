@@ -84,7 +84,7 @@ export class Controller {
 
   createShapes() {
     this.model.shapesContainer = new PIXI.Container();
-    // this.model.shapesContainer.interactive = true;
+    this.model.shapesContainer.interactive = true;
     this.model.app.stage.addChild(this.model.shapesContainer);
     for (let i = 1; i <= this.model.shapesGeneratingPerSecond; i++) {
       const shape = this.view.createRandomShape();
@@ -98,6 +98,8 @@ export class Controller {
       });
     }
     this.model.currentShapesIndicator.innerHTML = this.model.shapesOnPageArr.length;
+
+    // here we show the actual qty of shapes displayed
     this.model.totalShapesAreaIndicator.innerHTML = Math.round(this.model.totalShapesArea);
   }
 

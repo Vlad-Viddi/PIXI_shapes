@@ -1,5 +1,15 @@
 import * as PIXI from 'pixi.js';
 
+import {
+  TRIANGLE,
+  RECTANGLE,
+  PENTAGON,
+  HEXAGON,
+  CIRCLE,
+  ELLIPSE,
+  POLYGON
+} from '../../helpers/constants';
+
 export class View {
   constructor(model) {
     this.model = model;
@@ -32,22 +42,22 @@ export class View {
     graphic.beginFill(randomColor);
 
     switch(randomShape) {
-      case 'triangle':
+      case TRIANGLE:
         const [x1, y1] = [0, 0];
         const [x2, y2] = [(Math.random() + 0.25) * 100, 0];
         const [x3, y3] = [(Math.random() + 0.25) * 100, (Math.random() + 0.25) * 100];
         graphic.drawPolygon(x1, y1, x2, y2, x3, y3);
-        graphic.typeOfShape = 'triangle';
+        graphic.typeOfShape = TRIANGLE;
         graphic.area = 0.5 * Math.abs((x1 - x3) * (y2 - y3) - (y1 - y3) * (x2 - x3));
         break;
-      case 'rectangle':
+      case RECTANGLE:
         const height = (Math.random() + 0.25) * 100;
         const width = (Math.random() + 0.25) * 100;
         graphic.drawRect(0, 0, height, width);
-        graphic.typeOfShape = 'rectangle';
+        graphic.typeOfShape = RECTANGLE;
         graphic.area = height * width;
         break;
-      case 'pentagon':
+      case PENTAGON:
         const pentagonCoords = [
           (Math.random() + 0.25) * 50, 0,
           2, (Math.random() + 0.25) * 35,
@@ -56,10 +66,10 @@ export class View {
           (Math.random() + 0.25) * 98, (Math.random() + 0.25) * 35,
         ];
         graphic.drawPolygon(...pentagonCoords);
-        graphic.typeOfShape = 'pentagon';
+        graphic.typeOfShape = PENTAGON;
         graphic.area = this.countArea(pentagonCoords);
         break;
-      case 'hexagon':
+      case HEXAGON:
         const hexagonCoords = [
           (Math.random() + 0.25) * 75, (Math.random() + 0.25) * 7,
           (Math.random() + 0.25) * 25, (Math.random() + 0.25) * 7,
@@ -69,22 +79,22 @@ export class View {
           (Math.random() + 0.25) * 100, (Math.random() + 0.25) * 50,
         ];
         graphic.drawPolygon(...hexagonCoords);
-        graphic.typeOfShape = 'hexagon';
+        graphic.typeOfShape = HEXAGON;
         graphic.area = this.countArea(hexagonCoords);
         break;
-      case 'circle':
+      case CIRCLE:
         const radius = Math.random() * 50;
         graphic.drawCircle(0, 0, radius);
-        graphic.typeOfShape = 'circle';
+        graphic.typeOfShape = CIRCLE;
         graphic.area = Math.PI * radius ** 2;
         break;
-      case 'ellipse':
+      case ELLIPSE:
         const [ellipseWidth, ellipseHeight] = [(Math.random() + 0.25) * 80, (Math.random() + 0.25) * 60]
         graphic.drawEllipse(0, 0, ellipseWidth, ellipseHeight);
-        graphic.typeOfShape = 'ellipse';
+        graphic.typeOfShape = ELLIPSE;
         graphic.area = Math.PI * ellipseWidth * ellipseHeight;
         break;
-      case 'polygon':
+      case POLYGON:
 
         // choose qty of corners to create heptagonal to decagonal figures
         const qtyOfSides = Math.floor(Math.random() * (4) + 7);
@@ -146,7 +156,7 @@ export class View {
               (Math.random() + 0.25) * 91, (Math.random() + 0.25) * 21,
             ];
             graphic.drawPolygon(...decagonalCoords);
-            graphic.typeOfShape = 'polygon';
+            graphic.typeOfShape = POLYGON;
             graphic.area = this.countArea(decagonalCoords);
             break;
         }
